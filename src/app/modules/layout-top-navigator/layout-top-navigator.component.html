@@ -1,0 +1,144 @@
+<div class="content-wrapper" style="min-height: 793px; background-color: #231e39;">
+
+  <div class="content-header">
+    <div class="container">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0" align='center'>
+            <span style="color: chartreuse;">CLUBE </span><small style="color: aliceblue;">DA
+              ANATOMIA</small>
+          </h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+
+
+  <div class="content">
+
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <img class="img-fluid" alt="Responsive image" src="assets/img/banner03.jpg" />
+              <hr>
+              <button type="button" style="background-color: #231e39; color: chartreuse;"
+                class="btn btn-block bg-gradient btn-lg tokenizer-container" (click)="showDialog()">Garantir
+                Certificado</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="container-fluid">
+                <h2 class="text-center display-5">Meus Certificados</h2>
+                <div class="row">
+                  <div class="col-md-8 offset-md-2">
+                    <form action="simple-results.html">
+                      <div class="input-group">
+                        <input type="search" class="form-control form-control-lg" name="reference_cpf"
+                          placeholder="Digite seu CPF" [(ngModel)]="reference_cpf">
+                        <div class="input-group-append">
+                          <button type="submit" class="btn btn-lg btn-default" (click)="getPagamentosPorCPF($event)">
+                            <i class="fa fa-search"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div><!-- /.card -->
+        </div>
+
+        <div class="col-lg-12" *ngIf="payments.value.length > 0">
+          <div class="card">
+            <div class="card-body">
+
+              <div class="row">
+                <div *ngFor="let product of payments.value">
+                  <div class="card-container" *ngIf="product.status == 'approved'">
+                    <span class="pro">PAGO</span>
+                    <img class="round" src="assets/img/avatar.png" alt="user" />
+                    <h3 style="color: chartreuse;" *ngIf="product?.payer.first_name">{{product?.payer.first_name}}
+                    </h3>
+                    <h3 style="color: chartreuse;" *ngIf="!product?.payer.first_name">Fulano de Tal
+                    </h3>
+                    <h6>CERTIFICADO de 80 HORAS</h6>
+                    <p>Curso de Anatomia<br /> 05 à 09 de maio/2021</p>
+                    <div class="buttons">
+
+                      <button class="primary"
+                        (click)="gerarCertificado(product?.payer.first_name, product.external_reference, product.id, product?.transaction_amount)">
+                        Baixar
+                      </button>
+
+                    </div>
+                    <br>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div><!-- /.card -->
+        </div>
+
+      </div>
+      <!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+
+
+  <app-layout-top-navigator-footer></app-layout-top-navigator-footer>
+</div>
+
+
+
+
+
+<p-dialog header="Dados do Certificado" position="top" [(visible)]="display"
+  [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}" modal="true" blockScroll="true"
+  closable="true">
+  <form>
+    <div class="card-body">
+      <div class="form-group">
+        <label for="cpf">CPF</label>
+        <input type="text" class="form-control" id="cpf" placeholder="Sem pontuação" name="cpf" [(ngModel)]="cpf"
+          onkeypress="return event.charCode >= 48 && event.charCode <= 57" (ngModelChange)="cpf$.next($event)"
+          maxlength="11">
+        <span *ngIf="!CPFVerificado.value" class="small-box-footer" style="color: red;">CPF Inválido <i
+            class="fas fa-times"></i></span>
+        <span *ngIf="CPFVerificado.value" class="small-box-footer" style="color: green;">CPF Válido <i
+            class="fas fa-check"></i></span>
+      </div>
+
+      <div class="form-group" *ngIf="CPFVerificado.value">
+        <label for="nomeCompleto">Nome Completo</label>
+        <input type="text" class="form-control" id="nomeCompleto" placeholder="Nome Completo" name="nomeCompleto"
+          [(ngModel)]="nomeCompleto" [ngClass]="{'disabled': nome_participant.value != ''}">
+      </div>
+
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Confirmo os dados que irão aparecer no certificado</label>
+      </div>
+    </div>
+
+
+    <div class="card-footer">
+      <button type="submit" class="btn btn-success float-right" (click)="createPreferencia()"
+        [ngClass]="{'disabled': nomeCompleto == '' || !CPFVerificado.value}">Pagamento</button>
+    </div>
+  </form>
+</p-dialog>
+
+
+<!-- Main Footer -->

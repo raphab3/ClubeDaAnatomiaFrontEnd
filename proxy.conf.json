@@ -1,0 +1,8 @@
+{
+  "/api/*": {
+    "target": "bot2.rj2.app",
+    "secure": true,
+    "logLevel": "debug"
+  }
+}
+
