@@ -1,11 +1,12 @@
-<div class="content-wrapper" style="min-height: 793px; background-color: #231e39;">
+<!-- 231e39 -->
+<div class="content-wrapper" style="min-height: 793px; background-color: #1b1a24;">
 
   <div class="content-header">
     <div class="container">
       <div class="row mb-2">
         <div class="col-sm-6">
           <h1 class="m-0" align='center'>
-            <span style="color: chartreuse;">CLUBE </span><small style="color: aliceblue;">DA
+            <span style="color: #f3501f;">CLUBE </span><small style="color: aliceblue;">DA
               ANATOMIA</small>
           </h1>
         </div><!-- /.col -->
@@ -27,7 +28,7 @@
             <div class="card-body">
               <img class="img-fluid" alt="Responsive image" src="assets/img/banner03.jpg" />
               <hr>
-              <button type="button" style="background-color: #231e39; color: chartreuse;"
+              <button type="button" style="background-color: #1b1a24; color: #e5f31f;"
                 class="btn btn-block bg-gradient btn-lg tokenizer-container" (click)="showDialog()">Garantir
                 Certificado</button>
             </div>
@@ -68,9 +69,9 @@
                   <div class="card-container" *ngIf="product.status == 'approved'">
                     <span class="pro">PAGO</span>
                     <img class="round" src="assets/img/avatar.png" alt="user" />
-                    <h3 style="color: chartreuse;" *ngIf="product?.payer.first_name">{{product?.payer.first_name}}
+                    <h3 style="color: #ddc914;" *ngIf="product?.payer.first_name">{{product?.payer.first_name}}
                     </h3>
-                    <h3 style="color: chartreuse;" *ngIf="!product?.payer.first_name">Fulano de Tal
+                    <h3 style="color: #ddc914;" *ngIf="!product?.payer.first_name">Fulano de Tal
                     </h3>
                     <h6>CERTIFICADO de 80 HORAS</h6>
                     <p>Curso de Anatomia<br /> 05 à 09 de maio/2021</p>
@@ -80,6 +81,13 @@
                         (click)="gerarCertificado(product?.payer.first_name, product.external_reference, product.id, product?.transaction_amount)">
                         Baixar
                       </button>
+
+                      <br>
+                      <div class="slider" *ngIf="progressPDF > 1">
+                        <div class="line"></div>
+                        <div class="subline inc"></div>
+                        <div class="subline dec"></div>
+                      </div>
 
                     </div>
                     <br>
@@ -99,9 +107,6 @@
 
   <app-layout-top-navigator-footer></app-layout-top-navigator-footer>
 </div>
-
-
-
 
 
 <p-dialog header="Dados do Certificado" position="top" [(visible)]="display"

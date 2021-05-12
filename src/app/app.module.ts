@@ -35,6 +35,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 registerLocaleData(localeEn, 'en-EN');
 import { DialogModule } from 'primeng/dialog';
 import { CORSInterceptor } from './interceptor/CORS.interceptor';
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent,

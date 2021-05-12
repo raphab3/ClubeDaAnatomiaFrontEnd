@@ -3,10 +3,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MercadoPagoProvider } from './../../providers/mercadopago.provider';
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
 
 import { environment } from 'environments/environment';
-
+export interface Download {
+  state: 'PENDING' | 'IN_PROGRESS' | 'DONE'
+  progress: number
+  content: Blob | null
+}
 @Component({
   selector: 'app-layout-top-navigator',
   templateUrl: './layout-top-navigator.component.html',
@@ -28,6 +32,8 @@ export class LayoutTopNavigatorComponent implements OnInit {
 
   certificadoPDF: ArrayBuffer | SharedArrayBuffer;
   pdfSrc = new BehaviorSubject<any>("")
+
+  progressPDF = 1
   constructor(
     private mercadopago: MercadoPagoProvider,
     private http: HttpClient,
@@ -115,6 +121,7 @@ export class LayoutTopNavigatorComponent implements OnInit {
       full_name = "Certificado criado como teste"
     }
 
+    this.progressPDF = 2
     this.http.post(`${environment.API_NODE_URL}/certificados/gerar`, { full_name, cpf, id_mercadopago, valor })
       .subscribe((hash: any) => {
         this.pdfSrc.next(hash.url)
@@ -123,7 +130,8 @@ export class LayoutTopNavigatorComponent implements OnInit {
 
   download(url: string) {
     return this.http.get(url, {
-      responseType: 'blob' as 'json'
+      responseType: 'blob' as 'json',
+
     })
   }
 
@@ -131,21 +139,29 @@ export class LayoutTopNavigatorComponent implements OnInit {
     this.pdfSrc.subscribe(hash => {
       if (hash) {
 
+        console.log("HASH:", hash)
+        let link = document.createElement('a')
+        let blob = window.URL.createObjectURL(new Blob)
         this.download(`${environment.API_NODE_URL}/pdf_download?hash=${hash}`)
-          .subscribe((res: any) => {
-            console.log(res)
-            const file = new Blob([res], {
-              type: res.type
+          .subscribe((event: any) => {
+            console.log(event)
+
+            const file = new Blob([event], {
+              type: 'application/pdf'
             })
 
-            const blob = window.URL.createObjectURL(file)
-            const link = document.createElement('a')
+            blob = window.URL.createObjectURL(file)
             link.href = blob
             link.download = hash
+          }, error => {
+            console.log("error => ", error)
+          }, () => {
             link.click()
-
             window.URL.revokeObjectURL(blob)
             link.remove()
+            setTimeout(() => {
+              this.progressPDF = 1
+            }, 2000);
           })
       }
     })
