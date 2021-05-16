@@ -68,7 +68,13 @@ export class MercadoPagoProvider {
     this.http.post("https://api.mercadopago.com/checkout/preferences", this.preference, { headers }).subscribe((res: any) => {
       console.log("RES => ", res)
 
-      window.open(res.init_point, '')
+      let link = document.createElement('a')
+      link.href = res.init_point
+      link.click()
+      window.URL.revokeObjectURL(res.init_point)
+      link.remove()
+
+      // window.open(res.init_point, '')
     })
   }
 

@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MercadoPagoProvider } from './../../providers/mercadopago.provider';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
 
@@ -37,12 +37,35 @@ export class LayoutTopNavigatorComponent implements OnInit {
   constructor(
     private mercadopago: MercadoPagoProvider,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private renderer: Renderer2,
   ) { }
+
 
   ngOnInit(): void {
     this.verificadorDeCPF()
     this.loadPDFEndClick()
+    console.log("HOME")
+
+    const listRemove = ['sidebar-mini', 'layout-fixed', 'control-sidebar-slide-open', 'dark-mode', 'layout-navbar-fixed', 'sidebar-mini-md', 'sidebar-mini-xs', 'layout-footer-fixed', 'text-sm']
+
+    for (let index = 0; index <= listRemove.length; index++) {
+      const element = listRemove[index];
+      this.renderer.removeClass(
+        document.querySelector('body'),
+        element
+      );
+    }
+
+    this.renderer.addClass(
+      document.querySelector('body'),
+      'sidebar-collapse'
+    );
+
+    this.renderer.addClass(
+      document.querySelector('body'),
+      'layout-top-nav'
+    );
   }
 
   createPreferencia() {

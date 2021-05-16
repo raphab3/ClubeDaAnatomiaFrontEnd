@@ -1,17 +1,18 @@
 <!-- 231e39 -->
-<div class="content-wrapper" style="min-height: 793px; background-color: #1b1a24;">
+<div class="content-wrapper" style="min-height: 793px; ">
 
   <div class="content-header">
     <div class="container">
       <div class="row mb-2">
         <div class="col-sm-6">
           <h1 class="m-0" align='center'>
-            <span style="color: #f3501f;">CLUBE </span><small style="color: aliceblue;">DA
+            <span style="color: #202020;">CLUBE </span><small style="color: aliceblue;">DA
               ANATOMIA</small>
           </h1>
+
         </div><!-- /.col -->
         <div class="col-sm-6">
-
+          <!-- <img class="logoIMG" src="assets/img/logo_350.jpg" />   -->
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -28,9 +29,14 @@
             <div class="card-body">
               <img class="img-fluid" alt="Responsive image" src="assets/img/banner03.jpg" />
               <hr>
-              <button type="button" style="background-color: #1b1a24; color: #e5f31f;"
-                class="btn btn-block bg-gradient btn-lg tokenizer-container" (click)="showDialog()">Garantir
-                Certificado</button>
+              <div class="blobs-container">
+                <div class="blob green">
+                  <button type="button" style="background-color: #1b9c0f; color: #e9e9e9;"
+                    class="btn btn-block bg-gradient btn-lg tokenizer-container" (click)="showDialog()">
+                    <span style="font-size: larger;">Garantir Certificado</span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -68,7 +74,7 @@
                 <div *ngFor="let product of payments.value">
                   <div class="card-container" *ngIf="product.status == 'approved'">
                     <span class="pro">PAGO</span>
-                    <img class="round" src="assets/img/avatar.png" alt="user" />
+                    <img class="round card-img" src="assets/img/avatar.png" alt="user" />
                     <h3 style="color: #ddc914;" *ngIf="product?.payer.first_name">{{product?.payer.first_name}}
                     </h3>
                     <h3 style="color: #ddc914;" *ngIf="!product?.payer.first_name">Fulano de Tal

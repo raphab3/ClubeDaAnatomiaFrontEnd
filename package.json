@@ -4,7 +4,7 @@
     "scripts": {
         "start": "ng serve --proxy-config src/proxy.conf.json",
         "dev:start": "ng serve --proxy-config src/proxy.conf.json",
-        "dev:build": "ng build --prod --aot --buildOptimizer=true --base-href=./",
+        "build:prod": "ng build --prod --aot --buildOptimizer=true --base-href=./",
         "dev:test": "ng test",
         "dev:lint": "ng lint",
         "dev:e2e": "ng e2e",

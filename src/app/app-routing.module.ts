@@ -2,11 +2,8 @@ import { LayoutTopNavigatorComponent } from './modules/layout-top-navigator/layo
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainComponent } from '@modules/main/main.component';
-import { BlankComponent } from '@pages/blank/blank.component';
 import { LoginComponent } from '@modules/login/login.component';
-import { ProfileComponent } from '@pages/profile/profile.component';
 import { RegisterComponent } from '@modules/register/register.component';
-import { DashboardComponent } from '@pages/dashboard/dashboard.component';
 import { AuthGuard } from '@guards/auth.guard';
 import { NonAuthGuard } from '@guards/non-auth.guard';
 import { ForgotPasswordComponent } from '@modules/forgot-password/forgot-password.component';
@@ -19,24 +16,14 @@ const routes: Routes = [
     component: LayoutTopNavigatorComponent,
   },
   {
-    path: 'dashboard',
+    path: "members",
     component: MainComponent,
-    canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
-    children: [
-      {
-        path: 'profile',
-        component: ProfileComponent
-      },
-      {
-        path: 'blank',
-        component: BlankComponent
-      },
-      {
-        path: '',
-        component: DashboardComponent
-      }
-    ]
+    // canActivate: [AuthGuard],
+    // canActivateChild: [ServidorGuard],
+    loadChildren: () =>
+      import("./pages/administration/administration.module").then(
+        (mod) => mod.AdministrationModule
+      ),
   },
   {
     path: 'login',
