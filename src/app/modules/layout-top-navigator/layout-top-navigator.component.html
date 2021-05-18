@@ -27,14 +27,17 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-body">
-              <img class="img-fluid" alt="Responsive image" src="assets/img/banner03.jpg" />
-              <hr>
-              <div class="blobs-container">
-                <div class="blob green">
-                  <button type="button" style="background-color: #1b9c0f; color: #e9e9e9;"
-                    class="btn btn-block bg-gradient btn-lg tokenizer-container" (click)="showDialog()">
-                    <span style="font-size: larger;">Garantir Certificado</span>
-                  </button>
+              <div *ngFor="let event of events.value">
+                <img class="img-fluid" alt="Responsive image" src="{{event.img_banner}}" />
+
+                <hr>
+                <div class="blobs-container">
+                  <div class="blob green">
+                    <button type="button" style="background-color: #1b9c0f; color: #e9e9e9;"
+                      class="btn btn-block bg-gradient btn-lg tokenizer-container" (click)="showDialog(event)">
+                      <span style="font-size: larger;">Garantir Certificado</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -74,7 +77,8 @@
                 <div *ngFor="let product of payments.value">
                   <div class="card-container" *ngIf="product.status == 'approved'">
                     <span class="pro">PAGO</span>
-                    <img class="round card-img" src="assets/img/avatar.png" alt="user" />
+                    <img class="round card-img" src='{{product?.additional_info?.items["0"]?.picture_url}}'
+                      alt="user" />
                     <h3 style="color: #ddc914;" *ngIf="product?.payer.first_name">{{product?.payer.first_name}}
                     </h3>
                     <h3 style="color: #ddc914;" *ngIf="!product?.payer.first_name">Fulano de Tal
@@ -84,7 +88,7 @@
                     <div class="buttons">
 
                       <button class="primary"
-                        (click)="gerarCertificado(product?.payer.first_name, product.external_reference, product.id, product?.transaction_amount)">
+                        (click)="gerarCertificado(product?.payer.first_name, product?.payer.identification.number, product.external_reference, product?.additional_info?.items[0]?.id)">
                         Baixar
                       </button>
 
@@ -120,6 +124,7 @@
   closable="true">
   <form>
     <div class="card-body">
+      <h4>{{this.eventSelected?.title}}</h4>
       <div class="form-group">
         <label for="cpf">CPF</label>
         <input type="text" class="form-control" id="cpf" placeholder="Sem pontuação" name="cpf" [(ngModel)]="cpf"

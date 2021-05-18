@@ -23,6 +23,17 @@ hr {
     border-width: 3px;
 }
 
+a {
+    color: #f8d40a;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+a:hover {
+    color: #646771;
+    cursor: pointer;
+}
+
 .social > i {
     padding: 1%;
     font-size: 32px;
@@ -38,8 +49,8 @@ hr {
     font-size: 12px;
 }
 
-.pull-left{
-  font-size: 12px;
+.pull-left {
+    font-size: 12px;
 }
 
 .heading {

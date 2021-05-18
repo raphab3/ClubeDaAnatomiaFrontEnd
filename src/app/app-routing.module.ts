@@ -16,7 +16,7 @@ const routes: Routes = [
     component: LayoutTopNavigatorComponent,
   },
   {
-    path: "members",
+    path: "painel",
     component: MainComponent,
     // canActivate: [AuthGuard],
     // canActivateChild: [ServidorGuard],

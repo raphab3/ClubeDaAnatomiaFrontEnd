@@ -3,6 +3,7 @@ import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import IEVENTDTO from '@/shared/interfaces/events.interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,14 +12,14 @@ export class MercadoPagoProvider {
   preference = {
     "items": [
       {
-        "id": "item-ID-1235",
-        "title": "Certificado Anatomia",
+        "id": "",
+        "title": "",
         "currency_id": "BRL",
-        "picture_url": "https://www.mercadopago.com/org-img/MP3/home/logomp3.gif",
-        "description": "Curso de Anatomia Grátis no Youtube",
+        "picture_url": "",
+        "description": "",
         "category_id": "certificado",
         "quantity": 1,
-        "unit_price": 1.15
+        "unit_price": 20
       }
     ],
     "payer": {
@@ -40,10 +41,27 @@ export class MercadoPagoProvider {
       }
     },
     "back_urls": {
-      "success": "https://clubedaanatomia-581a7.web.app",
-      "failure": "https://clubedaanatomia-581a7.web.app",
-      "pending": "https://clubedaanatomia-581a7.web.app"
+      "success": "https://clubedaanatomia.com.br",
+      "failure": "https://clubedaanatomia.com.br",
+      "pending": "https://clubedaanatomia.com.br"
     },
+    tracks: [
+      {
+        type: "facebook_ad",
+        values: {
+          "pixel_id": '979606739475091'
+        }
+      },
+      // {
+      //   type: "google_ad",
+      //   values: {
+      //     conversion_id: "CONVERSION_ID",
+      //     conversion_label: "CONVERSION_LABEL"
+      //   }
+      // }
+    ],
+
+    "binary_mode": true,
     "auto_return": "approved",
     "notification_url": "https://bot2.rj2.app/api/v1/mercadopago/notification",
     "statement_descriptor": "Clube da Anatomia",
@@ -58,8 +76,16 @@ export class MercadoPagoProvider {
   }
 
 
-  async criarPreferencia(nomeCompleto, cpf) {
+  async criarPreferencia(nomeCompleto: string, cpf: string, items: IEVENTDTO) {
     const headers = { 'Authorization': `Bearer ${environment.ACCESS_TOKEN_MERCADOPAGO}` };
+
+    console.log("items PRICE=> ", parseFloat(items.unit_price.toString()))
+
+    this.preference.items[0].id = items.id
+    this.preference.items[0].title = items.title
+    this.preference.items[0].description = items.description
+    this.preference.items[0].picture_url = items.img_banner
+    this.preference.items[0].unit_price = parseFloat(items.unit_price.toString())
 
     this.preference.payer.name = nomeCompleto
     this.preference.payer.identification.number = cpf

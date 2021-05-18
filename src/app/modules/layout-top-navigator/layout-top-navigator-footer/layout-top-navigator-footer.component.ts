@@ -13,7 +13,7 @@ declare const Instafeed: any;
 export class LayoutTopNavigatorFooterComponent implements OnInit {
   public appVersion = version;
   itensInsta = new BehaviorSubject<any>([])
-
+  anoAtual = new Date().getFullYear()
   constructor(private router: Router) { }
 
   ngOnInit(): void {
@@ -21,33 +21,9 @@ export class LayoutTopNavigatorFooterComponent implements OnInit {
   }
 
 
-  goAdminRoot() {
-    this.router.navigate(['/members']).then(res => console.log(res))
+  goAdminRoot(event: Event) {
+    event.preventDefault()
+    this.router.navigate(['/painel']).then(res => console.log(res))
   }
 
-
-
-
-
-
-
-
-
-  // insta() {
-  //   let arr = []
-  //   let feed = new Instafeed({
-  //     accessToken: "IGQVJVLWEtTDA4dkx3SlFIU0lvQWxGQ2luRkJkbjJsYVJSZA05XYTBaU1ZAHZAlhWMW83RTZACajE4bjVaT2lsOGVUUUZAsRzk2NUI2VDRRM3JWNGNGSDhrbkR3WVRMUGRmVkRvZA3QwdW5aeEY4QjVOTHFMTgZDZD",
-  //     transform: (item: any) => {
-  //       let d = new Date(item.timestamp);
-  //       item.date = [d.getDate(), d.getMonth(), d.getFullYear()].join('/');
-
-  //       arr.push(item)
-  //       this.itensInsta.next(arr[0])
-  //       return item;
-  //     }
-  //   });
-
-
-  //   feed.run();
-  // }
 }
