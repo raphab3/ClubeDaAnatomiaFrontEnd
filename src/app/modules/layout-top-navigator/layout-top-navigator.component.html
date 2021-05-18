@@ -77,7 +77,7 @@
                 <div *ngFor="let product of payments.value">
                   <div class="card-container" *ngIf="product.status == 'approved'">
                     <span class="pro">PAGO</span>
-                    <img class="round card-img" src='{{product?.additional_info?.items["0"]?.picture_url}}'
+                    <img class="round card-img" src='{{product?.additional_info?.items[0]?.picture_url}}'
                       alt="user" />
                     <h3 style="color: #ddc914;" *ngIf="product?.payer.first_name">{{product?.payer.first_name}}
                     </h3>
@@ -88,7 +88,7 @@
                     <div class="buttons">
 
                       <button class="primary"
-                        (click)="gerarCertificado(product?.payer.first_name, product?.payer.identification.number, product.external_reference, product?.additional_info?.items[0]?.id)">
+                        (click)="gerarCertificado(product?.payer.first_name, product?.payer.identification.number, product.external_reference, product?.additional_info?.items[0]?.id, product?.id)">
                         Baixar
                       </button>
 
