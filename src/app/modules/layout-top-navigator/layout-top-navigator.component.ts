@@ -73,14 +73,20 @@ export class LayoutTopNavigatorComponent implements OnInit {
 
   getPagamentosPorCPF(event: Event) {
     event.preventDefault()
-    const headers = { 'Authorization': `Bearer ${environment.ACCESS_TOKEN_MERCADOPAGO}` };
-
-    // Reference_1234
-    this.http.get(`https://api.mercadopago.com/v1/payments/search?external_reference=${this.reference_cpf}`, { headers })
+    this.http.get(`${environment.API_NODE_URL}/payments/external_reference?external_reference=${this.reference_cpf}`)
       .subscribe((res: any) => {
         console.log("result => ", res)
-        this.payments.next(res.results)
+        this.payments.next(res)
       })
+
+    // const headers = { 'Authorization': `Bearer ${environment.ACCESS_TOKEN_MERCADOPAGO}` };
+
+    // // Reference_1234
+    // this.http.get(`https://api.mercadopago.com/v1/payments/search?external_reference=${this.reference_cpf}`, { headers })
+    //   .subscribe((res: any) => {
+    //     console.log("result => ", res)
+    //     this.payments.next(res.results)
+    //   })
   }
 
   verificadorDeCPF() {

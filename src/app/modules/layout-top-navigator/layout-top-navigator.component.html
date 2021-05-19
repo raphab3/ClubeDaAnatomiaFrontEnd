@@ -77,18 +77,17 @@
                 <div *ngFor="let product of payments.value">
                   <div class="card-container" *ngIf="product.status == 'approved'">
                     <span class="pro">PAGO</span>
-                    <img class="round card-img" src='{{product?.additional_info?.items[0]?.picture_url}}'
-                      alt="user" />
-                    <h3 style="color: #ddc914;" *ngIf="product?.payer.first_name">{{product?.payer.first_name}}
+                    <img class="round card-img" [src]='product?.event.picture_url' alt="{{product?.event.title}}" />
+                    <h3 style="color: #ddc914;" *ngIf="product?.first_name">{{product?.first_name}}
                     </h3>
-                    <h3 style="color: #ddc914;" *ngIf="!product?.payer.first_name">Fulano de Tal
+                    <h3 style="color: #ddc914;" *ngIf="!product?.first_name">Fulano de Tal
                     </h3>
-                    <h6>CERTIFICADO de 80 HORAS</h6>
-                    <p>Curso de Anatomia<br /> 05 à 09 de maio/2021</p>
+                    <h6>CERTIFICADO de {{product?.event.carga_horaria}} HORAS</h6>
+                    <p>{{product?.event.title}}<br /> {{product?.event?.periodo}}</p>
                     <div class="buttons">
 
                       <button class="primary"
-                        (click)="gerarCertificado(product?.payer.first_name, product?.payer.identification.number, product.external_reference, product?.additional_info?.items[0]?.id, product?.id)">
+                        (click)="gerarCertificado(product?.first_name, product?.cpf, product.external_reference, product?.event.id, product?.order_id)">
                         Baixar
                       </button>
 
