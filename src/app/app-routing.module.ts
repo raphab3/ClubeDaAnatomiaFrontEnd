@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { MainComponent } from '@modules/main/main.component';
 import { LoginComponent } from '@modules/login/login.component';
 import { RegisterComponent } from '@modules/register/register.component';
-import { AuthGuard } from '@guards/auth.guard';
 import { NonAuthGuard } from '@guards/non-auth.guard';
 import { ForgotPasswordComponent } from '@modules/forgot-password/forgot-password.component';
 import { RecoverPasswordComponent } from '@modules/recover-password/recover-password.component';
@@ -18,8 +17,6 @@ const routes: Routes = [
   {
     path: "painel",
     component: MainComponent,
-    // canActivate: [AuthGuard],
-    // canActivateChild: [ServidorGuard],
     loadChildren: () =>
       import("./pages/administration/administration.module").then(
         (mod) => mod.AdministrationModule

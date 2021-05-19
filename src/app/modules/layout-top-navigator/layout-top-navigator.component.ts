@@ -145,6 +145,10 @@ export class LayoutTopNavigatorComponent implements OnInit {
     this.http.post(`${environment.API_NODE_URL}/certificados/gerar`, { payment_mercadopago_id })
       .subscribe((hash: any) => {
         this.pdfSrc.next(hash.url)
+      }, error => {
+        setTimeout(() => {
+          this.progressPDF = 1
+        }, 2000);
       })
   }
 
@@ -174,6 +178,9 @@ export class LayoutTopNavigatorComponent implements OnInit {
             link.download = hash
           }, error => {
             console.log("error => ", error)
+            setTimeout(() => {
+              this.progressPDF = 1
+            }, 2000);
           }, () => {
             link.click()
             window.URL.revokeObjectURL(blob)
