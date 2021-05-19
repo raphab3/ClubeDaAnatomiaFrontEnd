@@ -10,6 +10,16 @@ import IEVENTDTO from '@/shared/interfaces/events.interface';
 export class MercadoPagoProvider {
 
   preference = {
+    "additional_info": {
+      "payer": {
+        "first_name": "",
+        "information": "",
+        "cpf": ""
+      }
+    },
+    "metadata": {
+      "first_name": "",
+    },
     "items": [
       {
         "id": "",
@@ -24,6 +34,7 @@ export class MercadoPagoProvider {
     ],
     "payer": {
       "name": "",
+      "first_name": "",
       "surname": "",
       "email": "",
       "phone": {
@@ -83,11 +94,12 @@ export class MercadoPagoProvider {
 
     this.preference.items[0].id = items.id
     this.preference.items[0].title = items.title
-    this.preference.items[0].description = items.description
+    this.preference.items[0].description = nomeCompleto
     this.preference.items[0].picture_url = items.img_banner
     this.preference.items[0].unit_price = parseFloat(items.unit_price.toString())
 
     this.preference.payer.name = nomeCompleto
+    this.preference.payer.first_name = nomeCompleto
     this.preference.payer.identification.number = cpf
     this.preference.external_reference = cpf
 
@@ -99,8 +111,6 @@ export class MercadoPagoProvider {
       link.click()
       window.URL.revokeObjectURL(res.init_point)
       link.remove()
-
-      // window.open(res.init_point, '')
     })
   }
 

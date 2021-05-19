@@ -86,8 +86,7 @@
                     <p>{{product?.event.title}}<br /> {{product?.event?.periodo}}</p>
                     <div class="buttons">
 
-                      <button class="primary"
-                        (click)="gerarCertificado(product?.first_name, product?.cpf, product.external_reference, product?.event.id, product?.order_id)">
+                      <button class="primary" (click)="gerarCertificado(product?.payment_mercadopago_id)">
                         Baixar
                       </button>
 

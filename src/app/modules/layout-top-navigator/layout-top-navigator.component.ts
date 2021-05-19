@@ -140,13 +140,9 @@ export class LayoutTopNavigatorComponent implements OnInit {
       })
   }
 
-  async gerarCertificado(nome_completo, cpf, external_reference, event_id, order_id) {
-    if (!nome_completo) {
-      nome_completo = "Certificado criado como teste"
-    }
-
+  async gerarCertificado(payment_mercadopago_id) {
     this.progressPDF = 2
-    this.http.post(`${environment.API_NODE_URL}/certificados/gerar`, { nome_completo, cpf, external_reference, event_id, order_id })
+    this.http.post(`${environment.API_NODE_URL}/certificados/gerar`, { payment_mercadopago_id })
       .subscribe((hash: any) => {
         this.pdfSrc.next(hash.url)
       })
