@@ -19,6 +19,7 @@ export class MercadoPagoProvider {
     },
     "metadata": {
       "first_name": "",
+      "cpf": "",
     },
     "items": [
       {
@@ -72,7 +73,7 @@ export class MercadoPagoProvider {
       // }
     ],
 
-    "binary_mode": true,
+    "binary_mode": false,
     "auto_return": "approved",
     "notification_url": "https://bot2.rj2.app/api/v1/mercadopago/notification",
     "statement_descriptor": "Clube da Anatomia",
@@ -91,10 +92,12 @@ export class MercadoPagoProvider {
     const headers = { 'Authorization': `Bearer ${environment.ACCESS_TOKEN_MERCADOPAGO}` };
 
     console.log("items PRICE=> ", parseFloat(items.unit_price.toString()))
+    this.preference.metadata.first_name = nomeCompleto
+    this.preference.metadata.cpf = cpf
 
     this.preference.items[0].id = items.id
     this.preference.items[0].title = items.title
-    this.preference.items[0].description = nomeCompleto
+    this.preference.items[0].description = items.description
     this.preference.items[0].picture_url = items.img_banner
     this.preference.items[0].unit_price = parseFloat(items.unit_price.toString())
 
