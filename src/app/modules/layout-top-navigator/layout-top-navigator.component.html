@@ -76,16 +76,14 @@
             <div class="card-body">
 
               <div class="row">
-                <div *ngFor="let product of payments.value">
+                <div *ngFor="let product of payments.value" class="col-sm-12">
                   <div class="card-container" *ngIf="product.status == 'approved'">
                     <span class="pro">PAGO</span>
                     <img class="round card-img" [src]='product?.event.picture_url' alt="{{product?.event.title}}" />
                     <h3 style="color: #ddc914;" *ngIf="product?.first_name">{{product?.first_name}}
                     </h3>
-                    <h3 style="color: #ddc914;" *ngIf="!product?.first_name">Fulano de Tal
-                    </h3>
                     <h6>CERTIFICADO de {{product?.event.carga_horaria}} HORAS</h6>
-                    <p>{{product?.event.title}}<br /> {{product?.event?.periodo}}</p>
+                    <p>{{product?.event.description}}<br /> {{product?.event?.periodo}}</p>
                     <div class="buttons">
 
                       <button class="primary" (click)="gerarCertificado(product?.payment_mercadopago_id)">

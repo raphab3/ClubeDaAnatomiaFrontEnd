@@ -71,6 +71,7 @@
     border: 0.5px solid #e5f31f;
     border-radius: 50%;
     padding: 3px;
+    // background-size: cover;
 }
 
 button.primary {
@@ -176,24 +177,23 @@ button.primary.ghost {
         max-width: 20rem !important;
     }
 
-    .card-container .round {
-        border: 1px solid #e5f31f;
-        border-radius: 50%;
-        padding: 7px;
-        width: 15rem;
-    }
+    // .card-container .round {
+    //   border: 0.5px solid #e5f31f;
+    //   border-radius: 50%;
+    //   padding: 3px;
+    // }
 }
 
 .blob.green {
-    background: rgba(51, 217, 178, 1);
-    box-shadow: 0 0 0 0 rgba(51, 217, 178, 1);
+    background: rgb(217, 76, 51);
+    box-shadow: 0 0 0 0 rgb(223, 63, 14);
     animation: pulse-green 2s infinite;
 }
 
 @keyframes pulse-green {
     0% {
         transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba(51, 217, 178, 0.7);
+        box-shadow: 0 0 0 0 rgba(236, 44, 30, 0.7);
     }
 
     70% {
