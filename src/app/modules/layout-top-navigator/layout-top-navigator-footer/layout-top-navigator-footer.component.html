@@ -1,4 +1,60 @@
-<footer class="main-footer" style="background-color: #1b1a24; height: min-content 700px;">
+<footer class="main-footer fixed-bottom" style="background-color: #1b1a24;top: 16%;  margin-top:1em;
+padding:10px 5px;  position: relative;">
+  <nav class="navbar">
+
+    <div class="row">
+      <div class="col-sm-12 col-lg-6">
+        <span style="color: #e5f31f; text-align: center;">Suporte: (82) 9 9608-6308 </span>
+      </div>
+      <div class="col-sm-12 col-lg-6">
+        <span style="color: #e5f31f; text-align: center;">mariedsonjunior10@gmail.com</span>
+      </div>
+    </div>
+
+    <div class="container">
+
+
+      <style>
+        #imagem_whats {
+          position: fixed;
+          right: 0;
+          bottom: 0;
+          display: block;
+          cursor: pointer;
+          z-index: 9999999;
+          float: right;
+          width: 100px
+        }
+
+        #imagem_whats2 {
+          position: fixed;
+          right: 0;
+          bottom: 0;
+          display: block;
+          cursor: pointer;
+          z-index: 9999999;
+          float: right;
+          display: none
+        }
+
+        @media only screen and (max-width: 700px) and (min-width: 100px) {
+          #imagem_whats {
+            display: none;
+            width: 100px;
+          }
+
+          #imagem_whats2 {
+            display: block;
+            width: 80px;
+          }
+        }
+      </style>
+      <img id="imagem_whats" src="https://www.ellodigital.com.br/images/whatsapp.png"
+        onClick="window.open('https://wa.me/message/QMRI7YI2CDDMP1', '_blank');"><img id="imagem_whats2"
+        src="https://www.ellodigital.com.br/images/whatsapp.png"
+        onClick="window.open('https://wa.me/message/QMRI7YI2CDDMP1', '_blank');">
+    </div>
+  </nav>
   <div class="float-right d-none d-sm-block">
     <b>Version</b> {{ appVersion }}
   </div>
