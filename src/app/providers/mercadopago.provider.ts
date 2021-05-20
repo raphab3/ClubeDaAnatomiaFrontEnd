@@ -111,7 +111,7 @@ export class MercadoPagoProvider {
     this.preference.items[0].id = items.id
     this.preference.items[0].title = items.title
     this.preference.items[0].description = items.description
-    this.preference.items[0].picture_url = items.img_banner
+    this.preference.items[0].picture_url = items.picture_url
     this.preference.items[0].unit_price = parseFloat(items.unit_price.toString())
 
     this.preference.payer.name = nomeCompleto
