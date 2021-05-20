@@ -5,10 +5,12 @@
     <div class="container">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0" align='center'>
-            <span style="color: #202020;">CLUBE </span><small style="color: aliceblue;">DA
+          <!-- <h1 class="m-0" align='center'>
+            <span style="color: #ee3a2d;">CLUBE </span><small style="color: aliceblue;">DA
               ANATOMIA</small>
-          </h1>
+          </h1> -->
+
+          <!-- <img style="background-size: cover; " src="../../../assets/img/logo_350.jpg" /> -->
 
         </div><!-- /.col -->
         <div class="col-sm-6">
@@ -33,7 +35,7 @@
                 <hr>
                 <div class="blobs-container">
                   <div class="blob green">
-                    <button type="button" style="background-color: #1b9c0f; color: #e9e9e9;"
+                    <button type="button" style="background-color: #ee3a2d; color: #e9e9e9;"
                       class="btn btn-block bg-gradient btn-lg tokenizer-container" (click)="showDialog(event)">
                       <span style="font-size: larger;">Garantir Certificado</span>
                     </button>
@@ -136,8 +138,8 @@
 
       <div class="form-group" *ngIf="CPFVerificado.value">
         <label for="nomeCompleto">Nome Completo</label>
-        <input type="text" maxlength="40" class="form-control" id="nomeCompleto" placeholder="Nome Completo" name="nomeCompleto"
-          [(ngModel)]="nomeCompleto" [ngClass]="{'disabled': nome_participant.value != ''}">
+        <input type="text" maxlength="40" class="form-control" id="nomeCompleto" placeholder="Nome Completo"
+          name="nomeCompleto" [(ngModel)]="nomeCompleto" [ngClass]="{'disabled': nome_participant.value != ''}">
       </div>
 
       <div class="form-check">

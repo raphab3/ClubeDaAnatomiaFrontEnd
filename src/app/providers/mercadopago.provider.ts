@@ -21,6 +21,19 @@ export class MercadoPagoProvider {
       "first_name": "",
       "cpf": "",
     },
+    "payment_methods": {
+      "excluded_payment_methods": [
+        {
+          "id": "paypal"
+        }
+      ],
+      "excluded_payment_types": [
+        {
+          "id": "pec"
+        }
+      ],
+      "installments": 1
+    },
     "items": [
       {
         "id": "",
