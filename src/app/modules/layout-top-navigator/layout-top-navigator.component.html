@@ -136,7 +136,7 @@
 
       <div class="form-group" *ngIf="CPFVerificado.value">
         <label for="nomeCompleto">Nome Completo</label>
-        <input type="text" class="form-control" id="nomeCompleto" placeholder="Nome Completo" name="nomeCompleto"
+        <input type="text" maxlength="40" class="form-control" id="nomeCompleto" placeholder="Nome Completo" name="nomeCompleto"
           [(ngModel)]="nomeCompleto" [ngClass]="{'disabled': nome_participant.value != ''}">
       </div>
 
