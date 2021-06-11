@@ -1,3 +1,6 @@
+import { FailureComponent } from './modules/layout-top-navigator/redirect-pages/failure/failure.component';
+import { PendingComponent } from './modules/layout-top-navigator/redirect-pages/pending/pending.component';
+import { SuccessComponent } from './modules/layout-top-navigator/redirect-pages/success/success.component';
 import { LayoutTopNavigatorComponent } from './modules/layout-top-navigator/layout-top-navigator.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -21,6 +24,18 @@ const routes: Routes = [
       import("./pages/administration/administration.module").then(
         (mod) => mod.AdministrationModule
       ),
+  },
+  {
+    path: 'success',
+    component: SuccessComponent,
+  },
+  {
+    path: 'pending',
+    component: PendingComponent,
+  },
+  {
+    path: 'failure',
+    component: FailureComponent,
   },
   {
     path: 'login',

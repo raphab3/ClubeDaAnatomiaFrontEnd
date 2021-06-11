@@ -1,6 +1,6 @@
 {
     "name": "anatomia",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "scripts": {
         "start": "ng serve --proxy-config src/proxy.conf.json",
         "dev:start": "ng serve --proxy-config src/proxy.conf.json",
@@ -30,6 +30,7 @@
         "core-js": "3.8.0",
         "express": "4.17.1",
         "mercadopago": "^1.5.7",
+        "ngx-device-detector": "^2.0.10",
         "ngx-toastr": "13.2.1",
         "primeicons": "^4.1.0",
         "primeng": "^11.4.0",

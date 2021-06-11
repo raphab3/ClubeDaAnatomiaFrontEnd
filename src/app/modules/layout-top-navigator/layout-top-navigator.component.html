@@ -29,26 +29,6 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-body">
-              <div *ngFor="let event of events.value">
-                <img class="img-fluid" alt="Responsive image" src="{{event.img_banner}}" />
-
-                <hr>
-                <div class="blobs-container">
-                  <div class="blob green">
-                    <button type="button" style="background-color: #ee3a2d; color: #e9e9e9;"
-                      class="btn btn-block bg-gradient btn-lg tokenizer-container" (click)="showDialog(event)">
-                      <span style="font-size: larger;">Garantir Certificado</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-12">
-          <div class="card">
-            <div class="card-body">
               <div class="container-fluid">
                 <h2 class="text-center display-5">Meus Certificados</h2>
                 <div class="row">
@@ -107,6 +87,28 @@
           </div><!-- /.card -->
         </div>
 
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <div *ngFor="let event of events.value">
+                <img class="img-fluid" alt="Responsive image" src="{{event.img_banner}}" />
+
+                <hr>
+                <div class="blobs-container">
+                  <div class="blob green">
+                    <button type="button" style="background-color: #ee3a2d; color: #e9e9e9;"
+                      class="btn btn-block bg-gradient btn-lg tokenizer-container" (click)="showDialog(event)">
+                      <span style="font-size: larger;">Garantir Certificado</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
       </div>
       <!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -128,27 +130,29 @@
         <input type="text" class="form-control" id="cpf" placeholder="Sem pontuação" name="cpf" [(ngModel)]="cpf"
           onkeypress="return event.charCode >= 48 && event.charCode <= 57" (ngModelChange)="cpf$.next($event)"
           maxlength="11">
-        <span *ngIf="!CPFVerificado.value" class="small-box-footer" style="color: red;">CPF Inválido <i
+        <span *ngIf="!CPFVerificado.value" class="small-box-footer" style="color: red;">CPF INVÁLIDO: <i
             class="fas fa-times"></i></span>
-        <span *ngIf="CPFVerificado.value" class="small-box-footer" style="color: green;">CPF Válido <i
+        <span *ngIf="CPFVerificado.value" class="small-box-footer" style="color: green;">CPF VÁLIDO: <span
+            style="font-weight: 700;">ATENÇÃO</span> ESSE CPF SERÁ UTILIZADO NO CERTIFICADO <i
             class="fas fa-check"></i></span>
       </div>
 
       <div class="form-group" *ngIf="CPFVerificado.value">
         <label for="nomeCompleto">Nome Completo</label>
         <input type="text" maxlength="40" class="form-control" id="nomeCompleto" placeholder="Nome Completo"
-          name="nomeCompleto" [(ngModel)]="nomeCompleto" [ngClass]="{'disabled': nome_participant.value != ''}">
+          name="nomeCompleto" [(ngModel)]="nomeCompleto" [ngClass]="{'disabled': nome_participant.value != ''}"
+          (ngModelChange)="nomeCompleto = $event.toUpperCase()">
       </div>
 
       <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Confirmo os dados que irão aparecer no certificado</label>
+        <input type="checkbox" class="form-check-input" id="confirmDados" name="confirmDados">
+        <label class="form-check-label" for="confirmDados">Confirmo os dados que irão aparecer no certificado</label>
       </div>
     </div>
 
 
     <div class="card-footer">
-      <button type="submit" class="btn btn-success float-right" (click)="createPreferencia()"
+      <button type="submit" class="btn btn-success float-left" (click)="createPreferencia()"
         [ngClass]="{'disabled': nomeCompleto == '' || !CPFVerificado.value}">Pagamento</button>
     </div>
   </form>

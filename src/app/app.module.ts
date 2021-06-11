@@ -30,6 +30,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 registerLocaleData(localeEn, 'en-EN');
 import { DialogModule } from 'primeng/dialog';
 import { CORSInterceptor } from './interceptor/CORS.interceptor';
+import { SuccessComponent } from './modules/layout-top-navigator/redirect-pages/success/success.component';
+import { FailureComponent } from './modules/layout-top-navigator/redirect-pages/failure/failure.component';
+import { PendingComponent } from './modules/layout-top-navigator/redirect-pages/pending/pending.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +53,9 @@ import { CORSInterceptor } from './interceptor/CORS.interceptor';
     LayoutTopNavigatorComponent,
     LayoutTopNavigatorFooterComponent,
     LayoutTopNavigatorHeaderComponent,
+    SuccessComponent,
+    FailureComponent,
+    PendingComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +66,7 @@ import { CORSInterceptor } from './interceptor/CORS.interceptor';
     FormsModule,
     ToastrModule.forRoot({
       timeOut: 3000,
-      positionClass: 'toast-bottom-right',
+      positionClass: 'toast-bottom-left',
       preventDuplicates: true
     }),
     NgbModule,

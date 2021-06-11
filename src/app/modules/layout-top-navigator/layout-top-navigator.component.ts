@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MercadoPagoProvider } from './../../providers/mercadopago.provider';
@@ -7,6 +8,7 @@ import { debounceTime, distinctUntilChanged, filter, map, switchMap, tap } from 
 
 import { environment } from 'environments/environment';
 import IEVENTDTO from '@/shared/interfaces/events.interface';
+import { DeviceDetectorService } from 'ngx-device-detector';
 export interface Download {
   state: 'PENDING' | 'IN_PROGRESS' | 'DONE'
   progress: number
@@ -32,14 +34,23 @@ export class LayoutTopNavigatorComponent implements OnInit {
   progressPDF = 1
   events = new BehaviorSubject<any>([])
   eventSelected: IEVENTDTO;
+  // confirmDados: boolean = false
 
+  deviceInfo = new BehaviorSubject<any>(this.deviceService.getDeviceInfo())
+  optionsToaster: any;
   constructor(
     private mercadopago: MercadoPagoProvider,
     private http: HttpClient,
     private router: Router,
     private renderer: Renderer2,
-  ) { }
-
+    private deviceService: DeviceDetectorService,
+    private toast: ToastrService
+  ) {
+    this.optionsToaster = this.toast.toastrConfig;
+    this.optionsToaster.timeOut = 10000;
+    this.optionsToaster.autoDismiss = true;
+    this.optionsToaster.positionClass = 'toast-bottom-left';
+  }
 
   ngOnInit(): void {
     this.ajustDisplay()
@@ -47,7 +58,6 @@ export class LayoutTopNavigatorComponent implements OnInit {
     this.loadPDFEndClick()
     this.getEvents()
   }
-
 
   getEvents() {
     this.http.get(`${environment.API_NODE_URL}/events`).subscribe((res: any) => {
@@ -63,9 +73,9 @@ export class LayoutTopNavigatorComponent implements OnInit {
   createPreferencia() {
     console.log("eventSelected => ", this.eventSelected)
     if (this.nomeCompleto && this.cpf) {
-      console.log("DADOS: ", this.nomeCompleto, " cpf: ", this.cpf)
+      console.log("DADOS: ", this.nomeCompleto.toUpperCase(), " cpf: ", this.cpf)
 
-      this.mercadopago.criarPreferencia(this.nomeCompleto, this.cpf, this.eventSelected)
+      this.mercadopago.criarPreferencia(this.nomeCompleto.toUpperCase(), this.cpf, this.eventSelected)
       this.display = false
       this.eventSelected = null
     }
@@ -94,16 +104,21 @@ export class LayoutTopNavigatorComponent implements OnInit {
       debounceTime(1000),
       distinctUntilChanged()
     ).subscribe(async cpf => {
-      const verificado = this.validadoCPF(cpf)
-      if (verificado) {
-        console.log("CPF VERIFICADO => ", cpf)
-        this.verificarParticipante(cpf)
 
+      let mycpf = cpf
+      mycpf = mycpf.replace(/\D/g, "")
+      mycpf = mycpf.replace(/(\d{3})(\d)/, "$1.$2")
+      mycpf = mycpf.replace(/(\d{3})(\d)/, "$1.$2")
+      mycpf = mycpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2")
+
+      const verificado = this.validadoCPF(cpf, mycpf)
+      if (verificado) {
+        this.verificarParticipante(cpf)
       }
     })
   }
 
-  validadoCPF(cpf: string) {
+  validadoCPF(cpf: string, cpfPontuado: string) {
     if (cpf.length == 11) {
       let Soma;
       let Resto;
@@ -124,6 +139,8 @@ export class LayoutTopNavigatorComponent implements OnInit {
       if ((Resto == 10) || (Resto == 11)) Resto = 0;
       if (Resto != parseInt(cpf.substring(10, 11))) return (false);
 
+      let cpfValue: any = document.getElementById('cpf')
+      cpfValue.value = cpfPontuado
       this.CPFVerificado.next(true)
       return true
     } else {
@@ -141,6 +158,21 @@ export class LayoutTopNavigatorComponent implements OnInit {
   }
 
   async gerarCertificado(payment_mercadopago_id) {
+
+    let versionNumber = 999
+    if (this.deviceService.getDeviceInfo().device === "iPhone") {
+      this.deviceInfo.next(this.deviceService.getDeviceInfo());
+      let v = this.deviceInfo.value.userAgent.split(';')[1].split(" ")[4].split("_")[0]
+      versionNumber = parseInt(v)
+      console.log("VERSION => ", versionNumber)
+
+      const isMobile = this.deviceService.isMobile();
+      if (isMobile && this.deviceService.getDeviceInfo().device === "iPhone" && versionNumber <= 6) {
+        this.toast.warning(`Caro usuário, esse dispositivo é incompatível com nossa plataforma, favor tentar em outro dispositivo.
+      Ou entrar em contato com o suporte caso não consiga.`)
+        return
+      }
+    }
     this.progressPDF = 2
     this.http.post(`${environment.API_NODE_URL}/certificados/gerar`, { payment_mercadopago_id })
       .subscribe((hash: any) => {
@@ -183,9 +215,10 @@ export class LayoutTopNavigatorComponent implements OnInit {
             }, 2000);
           }, () => {
             link.click()
-            window.URL.revokeObjectURL(blob)
-            link.remove()
+
             setTimeout(() => {
+              window.URL.revokeObjectURL(blob)
+              link.remove()
               this.progressPDF = 1
             }, 2000);
           })

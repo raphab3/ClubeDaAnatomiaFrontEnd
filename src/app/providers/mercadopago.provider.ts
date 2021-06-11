@@ -66,9 +66,9 @@ export class MercadoPagoProvider {
       }
     },
     "back_urls": {
-      "success": "https://clubedaanatomia.com.br",
-      "failure": "https://clubedaanatomia.com.br",
-      "pending": "https://clubedaanatomia.com.br"
+      "success": "https://clubedaanatomia.com.br/success",
+      "failure": "https://clubedaanatomia.com.br/failure",
+      "pending": "https://clubedaanatomia.com.br/pending"
     },
     tracks: [
       {
