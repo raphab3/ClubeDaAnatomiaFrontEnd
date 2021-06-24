@@ -1,3 +1,4 @@
+import { ConsultCertificateComponent } from './modules/consult-certificate/consult-certificate.component';
 import { FailureComponent } from './modules/layout-top-navigator/redirect-pages/failure/failure.component';
 import { PendingComponent } from './modules/layout-top-navigator/redirect-pages/pending/pending.component';
 import { SuccessComponent } from './modules/layout-top-navigator/redirect-pages/success/success.component';
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutTopNavigatorComponent,
+  },
+  {
+    path: 'certificados',
+    component: ConsultCertificateComponent,
   },
   {
     path: "painel",

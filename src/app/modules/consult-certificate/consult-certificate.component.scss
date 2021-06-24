@@ -1,23 +1,4 @@
-.logoIMG {
-    width: 800px;
-    border-radius: 10px;
-}
 
-.content-header {
-    padding: 0 !important;
-}
-
-.card-body {
-    margin: 10px 0;
-}
-
-.content-wrapper {
-    width: 100%;
-    position: absolute;
-    background-color: #2c2c2c;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
 
 .card-container {
     background-color: #1b1a24;
@@ -177,25 +158,4 @@ button.primary.ghost {
     // }
 }
 
-.blob.green {
-    background: rgb(217, 76, 51);
-    box-shadow: 0 0 0 0 rgb(223, 63, 14);
-    animation: pulse-green 2s infinite;
-}
 
-@keyframes pulse-green {
-    0% {
-        transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba(236, 44, 30, 0.7);
-    }
-
-    70% {
-        transform: scale(1);
-        box-shadow: 0 0 0 10px rgba(51, 217, 178, 0);
-    }
-
-    100% {
-        transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba(51, 217, 178, 0);
-    }
-}

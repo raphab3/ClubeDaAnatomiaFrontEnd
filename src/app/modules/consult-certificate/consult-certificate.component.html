@@ -1,0 +1,84 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+  integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
+
+
+
+<div class="content-wrapper" style="background-color: black;">
+
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="container-fluid">
+              <h2 class="text-center display-5">Meus Certificados</h2>
+              <div class="row">
+                <div class="col-md-8 offset-md-2">
+                  <form action="simple-results.html">
+                    <div class="input-group">
+                      <input type="search" class="form-control form-control-lg" name="reference_cpf"
+                        placeholder="Digite seu CPF, apenas números" [(ngModel)]="reference_cpf"
+                        onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="11">
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-lg btn-default" (click)="getPagamentosPorCPF($event)">
+                          <i class="fa fa-search"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-lg-12" *ngIf="payments.value.length > 0">
+        <div class="card">
+          <div class="card-body">
+
+            <div class="row">
+              <div *ngFor="let product of payments.value" class="col-sm-12">
+                <div class="card-container" *ngIf="product.status == 'approved'">
+                  <span class="pro">PAGO</span>
+                  <img class="round card-img" [src]='product?.event.picture_url' alt="{{product?.event.title}}" />
+                  <h3 style="color: #ddc914;" *ngIf="product?.first_name">{{product?.first_name}}
+                  </h3>
+                  <h6>CERTIFICADO de {{product?.event.carga_horaria}} HORAS</h6>
+                  <p>{{product?.event.description}}<br /> {{product?.event?.periodo}}</p>
+                  <div class="buttons">
+
+                    <button class="primary" (click)="gerarCertificado(product?.payment_mercadopago_id)">
+                      Baixar
+                    </button>
+
+                    <br>
+                    <div class="slider" *ngIf="progressPDF > 1">
+                      <div class="line"></div>
+                      <div class="subline inc"></div>
+                      <div class="subline dec"></div>
+                    </div>
+
+                  </div>
+                  <br>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div><!-- /.card -->
+      </div>
+
+
+
+
+
+    </div>
+    <!-- /.row -->
+  </div><!-- /.container-fluid -->
+
+  <app-layout-top-navigator-footer></app-layout-top-navigator-footer>
+</div>

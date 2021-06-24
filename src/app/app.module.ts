@@ -33,6 +33,7 @@ import { CORSInterceptor } from './interceptor/CORS.interceptor';
 import { SuccessComponent } from './modules/layout-top-navigator/redirect-pages/success/success.component';
 import { FailureComponent } from './modules/layout-top-navigator/redirect-pages/failure/failure.component';
 import { PendingComponent } from './modules/layout-top-navigator/redirect-pages/pending/pending.component';
+import { ConsultCertificateComponent } from './modules/consult-certificate/consult-certificate.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { PendingComponent } from './modules/layout-top-navigator/redirect-pages/
     SuccessComponent,
     FailureComponent,
     PendingComponent,
+    ConsultCertificateComponent,
   ],
   imports: [
     BrowserModule,
